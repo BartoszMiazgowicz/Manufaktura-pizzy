@@ -43,28 +43,36 @@ export default function Hero() {
           line-height: 1;
           letter-spacing: -0.04em;
         }
+        .hero-logo-circle {
+          position: relative;
+          width: clamp(160px, 26vw, 380px);
+          height: clamp(160px, 26vw, 380px);
+          border-radius: 50%;
+          overflow: hidden;
+          flex-shrink: 0;
+        }
         @media (max-width: 768px) {
           .hero-root {
             grid-template-columns: 1fr;
-            grid-template-rows: 48vh auto;
+            grid-template-rows: 50vh auto;
             height: auto;
             min-height: 100svh;
           }
           .hero-left {
-            padding: 1.5rem 1.25rem 1.75rem;
+            padding: 1.75rem 1.5rem 2rem;
             order: 2;
           }
           .hero-right {
             order: 1;
           }
           .hero-title {
-            font-size: clamp(2.2rem, 10vw, 3.5rem);
+            font-size: clamp(2.4rem, 10vw, 3.5rem);
           }
           .hero-title-block {
-            padding: 1rem 0 !important;
+            padding: 1.25rem 0 !important;
           }
           .hero-divider {
-            margin: 1.25rem 0 !important;
+            margin: 1rem 0 !important;
           }
           .hero-big-temp {
             font-size: clamp(2.5rem, 10vw, 4rem);
@@ -72,9 +80,9 @@ export default function Hero() {
           .hero-vertical-label {
             display: none !important;
           }
-          .hero-logo {
-            width: 88px !important;
-            height: 88px !important;
+          .hero-logo-circle {
+            width: 120px !important;
+            height: 120px !important;
           }
           .hero-cta-row {
             flex-direction: row !important;
@@ -82,21 +90,18 @@ export default function Hero() {
           }
           .hero-cta-row a {
             flex: 1;
-            padding-top: 0.75rem !important;
-            padding-bottom: 0.75rem !important;
-            font-size: 10.5px !important;
+            padding-top: 0.8rem !important;
+            padding-bottom: 0.8rem !important;
+            font-size: 11px !important;
           }
         }
         @media (max-width: 390px) {
-          .hero-logo {
-            width: 70px !important;
-            height: 70px !important;
+          .hero-logo-circle {
+            width: 96px !important;
+            height: 96px !important;
           }
           .hero-left {
-            padding: 1.25rem 1rem 1.5rem !important;
-          }
-          .hero-title {
-            font-size: clamp(2rem, 10vw, 3rem);
+            padding: 1.25rem 1.25rem 1.75rem !important;
           }
         }
       `}</style>
@@ -111,14 +116,16 @@ export default function Hero() {
           transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {/* Logo */}
-          <div style={{ marginBottom: 'auto' }}>
-            <Image
-              src="/images/logo.png"
-              alt="Manufaktura Pizzy"
-              width={480}
-              height={480}
-              className="rounded-full hero-logo"
-            />
+          <div style={{ marginBottom: 'auto', flexShrink: 0 }}>
+            <div className="hero-logo-circle">
+              <Image
+                src="/images/logo.png"
+                alt="Manufaktura Pizzy"
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </div>
           </div>
 
           {/* Main title block */}
