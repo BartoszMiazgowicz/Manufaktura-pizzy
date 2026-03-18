@@ -181,155 +181,208 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+    </motion.header>
 
-      {/* ─── Mobile dropdown ────────────────────────────────────── */}
-      <AnimatePresence>
-        {open && (
+    {/* ─── Mobile Drawer Overlay ────────────────────────────────── */}
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
           <motion.div
             className="md:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setOpen(false)}
             style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 48,
+              background: 'rgba(0,0,0,0.6)',
+              backdropFilter: 'blur(4px)',
+              WebkitBackdropFilter: 'blur(4px)',
+            }}
+          />
+
+          {/* Drawer */}
+          <motion.div
+            className="md:hidden"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: 'min(85vw, 320px)',
+              zIndex: 49,
               background: 'rgba(8,6,3,0.99)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
-              borderTop: '1px solid rgba(201,151,62,0.15)',
-              overflow: 'hidden',
+              borderLeft: '1px solid rgba(201,151,62,0.15)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflowY: 'auto',
             }}
           >
-            <div style={{ padding: '1.25rem 1.5rem 2rem' }}>
+            {/* Drawer header */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '1.25rem 1.5rem',
+              borderBottom: '1px solid rgba(201,151,62,0.1)',
+            }}>
+              <div style={{
+                fontFamily: 'var(--font-playfair, serif)',
+                fontSize: '12px',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: 'rgba(237,232,223,0.4)',
+              }}>
+                Menu
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Zamknij menu"
+                style={{
+                  background: 'rgba(237,232,223,0.06)',
+                  border: '1px solid rgba(201,151,62,0.2)',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  color: '#EDE8DF',
+                  padding: '0.4rem 0.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
 
-              {/* Nav links */}
-              <div style={{ marginBottom: '1.75rem' }}>
-                {navLinks.map((link, i) => {
-                  const active = pathname === link.href;
-                  return (
-                    <motion.div
-                      key={link.href}
-                      initial={{ opacity: 0, x: -16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.06, ease: 'easeOut' }}
+            {/* Nav links */}
+            <div style={{ padding: '1rem 1.5rem', flex: 1 }}>
+              {navLinks.map((link, i) => {
+                const active = pathname === link.href;
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.07, ease: 'easeOut' }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '1rem 0',
+                        borderBottom: '1px solid rgba(237,232,223,0.06)',
+                        textDecoration: 'none',
+                      }}
                     >
-                      <Link
-                        href={link.href}
-                        onClick={() => setOpen(false)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          padding: '1rem 0',
-                          borderBottom: '1px solid rgba(237,232,223,0.06)',
-                          textDecoration: 'none',
-                        }}
-                      >
-                        <div>
-                          <div style={{
-                            fontSize: '17px',
-                            fontWeight: active ? 600 : 400,
-                            letterSpacing: '0.03em',
-                            color: active ? '#C9973E' : 'rgba(237,232,223,0.85)',
-                            marginBottom: '2px',
-                          }}>
-                            {link.label}
-                          </div>
-                          <div style={{
-                            fontSize: '11px',
-                            letterSpacing: '0.05em',
-                            color: 'rgba(237,232,223,0.3)',
-                            textTransform: 'uppercase',
-                          }}>
-                            {link.desc}
-                          </div>
+                      <div>
+                        <div style={{
+                          fontSize: '17px',
+                          fontWeight: active ? 600 : 400,
+                          letterSpacing: '0.03em',
+                          color: active ? '#C9973E' : 'rgba(237,232,223,0.85)',
+                          marginBottom: '2px',
+                        }}>
+                          {link.label}
                         </div>
                         <div style={{
-                          width: '28px', height: '28px',
-                          borderRadius: '50%',
-                          border: `1px solid ${active ? 'rgba(201,151,62,0.4)' : 'rgba(237,232,223,0.1)'}`,
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          color: active ? '#C9973E' : 'rgba(237,232,223,0.2)',
-                          fontSize: '14px',
-                          flexShrink: 0,
+                          fontSize: '11px',
+                          letterSpacing: '0.05em',
+                          color: 'rgba(237,232,223,0.3)',
+                          textTransform: 'uppercase',
                         }}>
-                          →
+                          {link.desc}
                         </div>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                      </div>
+                      <div style={{
+                        width: '28px', height: '28px',
+                        borderRadius: '50%',
+                        border: `1px solid ${active ? 'rgba(201,151,62,0.4)' : 'rgba(237,232,223,0.1)'}`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: active ? '#C9973E' : 'rgba(237,232,223,0.2)',
+                        fontSize: '14px',
+                        flexShrink: 0,
+                      }}>
+                        →
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-              {/* Divider */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.28 }}
-                style={{
-                  height: '1px',
-                  background: 'linear-gradient(to right, transparent, rgba(201,151,62,0.3), transparent)',
-                  marginBottom: '1.5rem',
-                }}
-              />
+            {/* Divider */}
+            <div style={{
+              height: '1px',
+              margin: '0 1.5rem',
+              background: 'linear-gradient(to right, transparent, rgba(201,151,62,0.3), transparent)',
+            }} />
 
-              {/* CTA buttons */}
-              <motion.div
+            {/* CTA buttons */}
+            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <motion.a
+                href="https://zamow.online"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.32 }}
-                style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
-              >
-                <a
-                  href="https://zamow.online"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setOpen(false)}
-                  style={{
-                    display: 'block', textAlign: 'center',
-                    background: '#C9973E', color: '#0C0A07',
-                    padding: '1rem', fontSize: '12px', fontWeight: 700,
-                    letterSpacing: '0.15em', textTransform: 'uppercase',
-                    textDecoration: 'none', borderRadius: '4px',
-                  }}
-                >
-                  Zamów Online
-                </a>
-                <a
-                  href="tel:+48733355075"
-                  style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                    border: '1px solid rgba(237,232,223,0.12)',
-                    color: 'rgba(237,232,223,0.55)',
-                    padding: '0.85rem', fontSize: '13px', letterSpacing: '0.08em',
-                    textDecoration: 'none', borderRadius: '4px',
-                  }}
-                >
-                  <Phone size={13} strokeWidth={1.5} />
-                  733 355 075
-                </a>
-              </motion.div>
-
-              {/* Bottom label */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.42 }}
                 style={{
-                  textAlign: 'center',
-                  marginTop: '1.5rem',
-                  fontSize: '10px',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(237,232,223,0.18)',
+                  display: 'block', textAlign: 'center',
+                  background: '#C9973E', color: '#0C0A07',
+                  padding: '1rem', fontSize: '12px', fontWeight: 700,
+                  letterSpacing: '0.15em', textTransform: 'uppercase',
+                  textDecoration: 'none', borderRadius: '4px',
                 }}
               >
-                Manufaktura Pizzy · Kraków
-              </motion.p>
+                Zamów Online
+              </motion.a>
+              <motion.a
+                href="tel:+48733355075"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.38 }}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                  border: '1px solid rgba(237,232,223,0.12)',
+                  color: 'rgba(237,232,223,0.55)',
+                  padding: '0.85rem', fontSize: '13px', letterSpacing: '0.08em',
+                  textDecoration: 'none', borderRadius: '4px',
+                }}
+              >
+                <Phone size={13} strokeWidth={1.5} />
+                733 355 075
+              </motion.a>
             </div>
+
+            {/* Bottom label */}
+            <p style={{
+              textAlign: 'center',
+              padding: '0 1.5rem 1.5rem',
+              fontSize: '10px',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'rgba(237,232,223,0.18)',
+            }}>
+              Manufaktura Pizzy · Zielona Góra
+            </p>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+        </>
+      )}
+    </AnimatePresence>
     </>
   );
 }

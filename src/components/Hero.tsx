@@ -72,10 +72,6 @@ export default function Hero() {
           .hero-vertical-label {
             display: none !important;
           }
-          .hero-logo {
-            width: 88px !important;
-            height: 88px !important;
-          }
           .hero-cta-row {
             flex-direction: row !important;
             gap: 0.65rem !important;
@@ -88,10 +84,6 @@ export default function Hero() {
           }
         }
         @media (max-width: 390px) {
-          .hero-logo {
-            width: 70px !important;
-            height: 70px !important;
-          }
           .hero-left {
             padding: 1.25rem 1rem 1.5rem !important;
           }
@@ -110,17 +102,6 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          {/* Logo */}
-          <div style={{ marginBottom: 'auto' }}>
-            <Image
-              src="/images/logo.png"
-              alt="Manufaktura Pizzy"
-              width={480}
-              height={480}
-              className="rounded-full hero-logo"
-            />
-          </div>
-
           {/* Main title block */}
           <div className="hero-title-block" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 0' }}>
             <h1 className="hero-title">
