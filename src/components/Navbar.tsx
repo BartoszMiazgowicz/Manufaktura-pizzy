@@ -29,13 +29,19 @@ export default function Navbar() {
   const border = isScrolled ? '1px solid rgba(201,151,62,0.1)' : '1px solid transparent';
 
   return (
+    <>
+    <style>{`
+      @media (min-width: 768px) { .navbar-inner { padding: 0 2.5rem !important; height: 80px !important; } }
+      .navbar-logo { width: 56px !important; height: 56px !important; }
+      @media (min-width: 768px) { .navbar-logo { width: 135px !important; height: 135px !important; } }
+    `}</style>
     <motion.header
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.2 }}
       style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, transition: 'background 0.4s, border 0.4s', background: bg, backdropFilter: isScrolled ? 'blur(20px)' : 'none', WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none', borderBottom: border }}
     >
-      <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
+      <div className="navbar-inner" style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
 
         {/* Logo — pojawia się tylko po przewinięciu */}
         <Link href="/" style={{
@@ -44,7 +50,7 @@ export default function Navbar() {
           pointerEvents: isScrolled ? 'auto' : 'none',
           transition: 'opacity 0.4s ease',
         }}>
-          <Image src="/images/logo.png" alt="Manufaktura Pizzy" width={135} height={135} className="rounded-full" />
+          <Image src="/images/logo.png" alt="Manufaktura Pizzy" width={135} height={135} className="rounded-full navbar-logo" />
         </Link>
 
         {/* Desktop nav — center */}
@@ -110,7 +116,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{ background: 'rgba(10,8,5,0.98)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(201,151,62,0.1)', overflow: 'hidden' }}
           >
-            <div style={{ padding: '1rem 2.5rem 2rem' }}>
+            <div style={{ padding: '1rem 1.25rem 2rem' }}>
               {navLinks.map((link, i) => {
                 const active = pathname === link.href;
                 return (
@@ -143,5 +149,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
+    </>
   );
 }

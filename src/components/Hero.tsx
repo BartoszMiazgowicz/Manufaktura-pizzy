@@ -66,6 +66,20 @@ export default function Hero() {
           .hero-vertical-label {
             display: none !important;
           }
+          .hero-logo {
+            width: 140px !important;
+            height: 140px !important;
+          }
+          .hero-cta-row {
+            flex-direction: row !important;
+            gap: 0.75rem !important;
+          }
+          .hero-cta-row a {
+            flex: 1;
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+            font-size: 10.5px !important;
+          }
         }
       `}</style>
 
@@ -85,7 +99,7 @@ export default function Hero() {
               alt="Manufaktura Pizzy"
               width={480}
               height={480}
-              className="rounded-full"
+              className="rounded-full hero-logo"
             />
           </div>
 
@@ -115,7 +129,7 @@ export default function Hero() {
           </div>
 
           {/* Bottom CTAs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+          <div className="hero-cta-row" style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
             <Link href="/menu" style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               background: '#C9973E', color: '#0C0A07',

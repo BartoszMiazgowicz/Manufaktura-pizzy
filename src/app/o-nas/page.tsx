@@ -94,7 +94,7 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="absolute -bottom-8 -left-8 bg-surface border border-primary/30 p-4 rounded-2xl shadow-2xl"
+                  className="absolute -bottom-8 -left-8 bg-surface border border-primary/30 p-4 rounded-2xl shadow-2xl hidden sm:block"
                 >
                   <Image
                     src="/images/logo.png"
@@ -102,6 +102,7 @@ export default function AboutPage() {
                     width={320}
                     height={320}
                     className="rounded-full"
+                    style={{ maxWidth: '160px', height: 'auto' }}
                   />
                 </motion.div>
               </div>
