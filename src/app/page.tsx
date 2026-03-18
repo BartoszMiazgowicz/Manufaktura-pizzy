@@ -181,9 +181,8 @@ export default function Home() {
               <motion.div
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.4 }}
-                className="pizzas-featured-inner"
+                className="pizzas-featured-inner group"
                 style={{ position: 'relative', height: '100%', minHeight: '520px', overflow: 'hidden', cursor: 'default', background: S.bg }}
-                className="group"
               >
                 <Image src={featuredPizzas[0].image} alt={featuredPizzas[0].name} fill className="object-cover"
                   style={{ transition: 'transform 0.7s ease' }}
@@ -206,9 +205,8 @@ export default function Home() {
                 <motion.div
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.4 }}
-                  className="pizzas-small-inner"
+                  className="pizzas-small-inner group"
                   style={{ position: 'relative', height: '255px', overflow: 'hidden', cursor: 'default', background: S.bg }}
-                  className="group"
                 >
                   <Image src={pizza.image} alt={pizza.name} fill className="object-cover"
                     style={{ transition: 'transform 0.7s ease' }}
