@@ -205,9 +205,8 @@ export default function Home() {
                 <motion.div
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.4 }}
-                  className="pizzas-small-inner"
+                  className="pizzas-small-inner group"
                   style={{ position: 'relative', height: '255px', overflow: 'hidden', cursor: 'default', background: S.bg }}
-                  className="group"
                 >
                   <Image src={pizza.image} alt={pizza.name} fill className="object-cover"
                     style={{ transition: 'transform 0.7s ease' }}
