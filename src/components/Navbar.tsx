@@ -97,6 +97,24 @@ export default function Navbar() {
           </a>
         </div>
 
+        {/* Mobile brand name (visible only when not scrolled) */}
+        <span className="md:hidden" style={{
+          fontFamily: 'var(--font-playfair, serif)',
+          fontSize: '13px',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: 'rgba(237,232,223,0.7)',
+          opacity: isScrolled ? 0 : 1,
+          transition: 'opacity 0.4s ease',
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          pointerEvents: 'none',
+          whiteSpace: 'nowrap',
+        }}>
+          Manufaktura Pizzy
+        </span>
+
         {/* Hamburger */}
         <button onClick={() => setOpen(!open)} className="md:hidden"
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#EDE8DF', padding: '0.4rem' }}>
@@ -116,24 +134,38 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{ background: 'rgba(10,8,5,0.98)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(201,151,62,0.1)', overflow: 'hidden' }}
           >
-            <div style={{ padding: '1rem 1.25rem 2rem' }}>
+            <div style={{ padding: '0.75rem 1.25rem 1.75rem' }}>
               {navLinks.map((link, i) => {
                 const active = pathname === link.href;
                 return (
                   <motion.div key={link.href} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
                     <Link href={link.href} onClick={() => setOpen(false)} style={{
-                      display: 'block', padding: '0.9rem 0',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      padding: '0.85rem 0',
                       borderBottom: '1px solid rgba(237,232,223,0.06)',
-                      color: active ? '#C9973E' : 'rgba(237,232,223,0.6)',
+                      color: active ? '#C9973E' : 'rgba(237,232,223,0.65)',
                       fontSize: '15px', letterSpacing: '0.04em', textDecoration: 'none',
                       fontWeight: active ? 600 : 400,
                     }}>
                       {link.label}
+                      {active && <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#C9973E', display: 'inline-block' }} />}
                     </Link>
                   </motion.div>
                 );
               })}
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }} style={{ marginTop: '1.5rem' }}>
+
+              {/* Phone + CTA */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <a href="tel:+48733355075" style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                  border: '1px solid rgba(237,232,223,0.1)',
+                  color: 'rgba(237,232,223,0.5)',
+                  padding: '0.75rem', fontSize: '13px', letterSpacing: '0.06em',
+                  textDecoration: 'none', borderRadius: '2px',
+                }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  733 355 075
+                </a>
                 <a href="https://zamow.online" target="_blank" rel="noopener noreferrer" style={{
                   display: 'block', textAlign: 'center',
                   background: '#C9973E', color: '#0C0A07',
