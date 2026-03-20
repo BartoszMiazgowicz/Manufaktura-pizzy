@@ -46,22 +46,28 @@ export default function Hero() {
         @media (max-width: 768px) {
           .hero-root {
             grid-template-columns: 1fr;
-            grid-template-rows: 52vh 1fr;
+            grid-template-rows: 48vh auto;
             height: auto;
             min-height: 100svh;
           }
           .hero-left {
-            padding: 2rem 1.75rem 2.5rem;
+            padding: 1.5rem 1.25rem 1.75rem;
             order: 2;
           }
           .hero-right {
             order: 1;
           }
           .hero-title {
-            font-size: clamp(2.75rem, 11vw, 4rem);
+            font-size: clamp(2.2rem, 10vw, 3.5rem);
+          }
+          .hero-title-block {
+            padding: 1rem 0 !important;
+          }
+          .hero-divider {
+            margin: 1.25rem 0 !important;
           }
           .hero-big-temp {
-            font-size: clamp(3rem, 12vw, 5rem);
+            font-size: clamp(2.5rem, 10vw, 4rem);
           }
           .hero-vertical-label {
             display: none !important;
@@ -70,22 +76,33 @@ export default function Hero() {
             width: 200px !important;
             height: 200px !important;
           }
-          .hero-big-temp {
-            font-size: clamp(2.5rem, 10vw, 4rem);
-          }
           .hero-bottom-temp {
             bottom: 1.5rem !important;
             left: 1.5rem !important;
           }
+          .hero-cta-row {
+            flex-direction: row !important;
+            gap: 0.65rem !important;
+          }
+          .hero-cta-row a {
+            flex: 1;
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
+            font-size: 10.5px !important;
+          }
         }
         @media (max-width: 480px) {
           .hero-left {
-            padding: 1.5rem 1.25rem 2rem;
+            padding: 1.25rem 1rem 1.5rem;
+          }
+          .hero-title {
+            font-size: clamp(2rem, 10vw, 3rem);
           }
           .hero-logo {
             width: 150px !important;
             height: 150px !important;
           }
+        }
       `}</style>
 
       <section className="hero-root">
@@ -110,13 +127,13 @@ export default function Hero() {
           </div>
 
           {/* Main title block */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 0' }}>
+          <div className="hero-title-block" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 0' }}>
             <h1 className="hero-title">
               <span style={{ display: 'block', color: '#EDE8DF', whiteSpace: 'nowrap' }}>Manufaktura</span>
               <em style={{ display: 'block', color: '#C9973E', fontStyle: 'italic' }}>Pizzy</em>
             </h1>
 
-            <div style={{
+            <div className="hero-divider" style={{
               width: '48px', height: '1px',
               background: 'rgba(201,151,62,0.45)',
               margin: '2rem 0',
@@ -135,7 +152,7 @@ export default function Hero() {
           </div>
 
           {/* Bottom CTAs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+          <div className="hero-cta-row" style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
             <Link href="/menu" style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               background: '#C9973E', color: '#0C0A07',
@@ -180,7 +197,6 @@ export default function Hero() {
             style={{ objectPosition: 'center center' }}
           />
 
-          {/* Dark vignette */}
           <div style={{
             position: 'absolute', inset: 0,
             background: 'linear-gradient(to right, rgba(12,10,7,0.5) 0%, rgba(12,10,7,0.05) 40%, transparent 100%)',
@@ -190,7 +206,6 @@ export default function Hero() {
             background: 'linear-gradient(to top, rgba(12,10,7,0.7) 0%, transparent 50%)',
           }} />
 
-          {/* 500°C — big design element */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -208,7 +223,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Vertical label — right edge */}
           <div
             className="hero-vertical-label"
             style={{
