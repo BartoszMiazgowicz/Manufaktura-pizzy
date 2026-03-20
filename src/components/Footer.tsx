@@ -37,14 +37,15 @@ export default function Footer() {
 
           {/* Brand */}
           <div style={{ ...col }}>
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', marginBottom: '1.5rem' }}>
-              <Image
-                src="/images/logo.png"
-                alt="Manufaktura Pizzy"
-                width={195}
-                height={195}
-                style={{ borderRadius: '50%', flexShrink: 0 }}
-              />
+            <Link href="/" className="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', marginBottom: '1.5rem' }}>
+              <div style={{ width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+                <Image
+                  src="/images/logo.png"
+                  alt="Manufaktura Pizzy"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div>
                 <div style={{ color: '#EDE8DF', fontSize: '1rem', fontWeight: 700, lineHeight: 1.2, fontFamily: 'var(--font-playfair, serif)' }}>Manufaktura</div>
                 <div style={{ color: '#C9973E', fontSize: '9px', fontWeight: 500, letterSpacing: '0.3em', textTransform: 'uppercase' }}>Pizzy</div>

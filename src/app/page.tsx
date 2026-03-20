@@ -38,19 +38,19 @@ export default function Home() {
 
       {/* ── STATS STRIP ─────────────────────────────────────────── */}
       <section style={{ background: S.surface, borderTop: `1px solid ${S.border}`, borderBottom: `1px solid ${S.border}` }}>
-        <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderLeft: `1px solid ${S.border}` }}>
+        <div className="home-container">
+          <div className="home-stats-grid" style={{ borderLeft: `1px solid ${S.border}` }}>
             {[
               { num: '500°C',    label: 'temperatura pieca'         },
               { num: '60 sek',   label: 'czas pieczenia'            },
               { num: 'AVPN',     label: 'certyfikat autentyczności' },
               { num: '24–72h',   label: 'fermentacja ciasta'        },
             ].map((s) => (
-              <div key={s.num} style={{ padding: '2.25rem 2rem', borderRight: `1px solid ${S.border}` }}>
-                <div style={{ fontFamily: 'var(--font-playfair, serif)', fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, color: S.gold, letterSpacing: '-0.02em', lineHeight: 1 }}>
+              <div key={s.num} className="home-stats-item" style={{ borderRight: `1px solid ${S.border}` }}>
+                <div style={{ fontFamily: 'var(--font-playfair, serif)', fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, color: S.gold, letterSpacing: '-0.02em', lineHeight: 1, flexShrink: 0 }}>
                   {s.num}
                 </div>
-                <div style={{ color: S.muted, fontSize: '12px', marginTop: '0.5rem', letterSpacing: '0.04em' }}>
+                <div className="stats-label" style={{ color: S.muted, fontSize: '12px', marginTop: '0.5rem', letterSpacing: '0.04em' }}>
                   {s.label}
                 </div>
               </div>
@@ -60,9 +60,9 @@ export default function Home() {
       </section>
 
       {/* ── STORY ───────────────────────────────────────────────── */}
-      <section style={{ background: S.bg, padding: '8rem 0' }}>
-        <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'start' }}>
+      <section className="home-section-lg" style={{ background: S.bg }}>
+        <div className="home-container">
+          <div className="home-two-col">
 
             <AnimatedSection>
               <div style={{ position: 'relative' }}>
@@ -71,12 +71,10 @@ export default function Home() {
                   alt="Piec z Neapolu"
                   width={580}
                   height={680}
-                  className="object-cover"
-                  style={{ width: '100%', height: '580px', objectFit: 'cover', display: 'block' }}
+                  className="object-cover home-story-image"
                 />
                 {/* Overlapping caption */}
-                <div style={{
-                  position: 'absolute', bottom: '2rem', left: '-1.5rem',
+                <div className="home-story-caption" style={{
                   background: S.surface, padding: '1.25rem 1.75rem',
                   borderLeft: `2px solid ${S.gold}`,
                 }}>
@@ -134,8 +132,8 @@ export default function Home() {
       </section>
 
       {/* ── PIZZAS ──────────────────────────────────────────────── */}
-      <section style={{ background: S.surface, padding: '7rem 0' }}>
-        <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem' }}>
+      <section className="home-section-md" style={{ background: S.surface }}>
+        <div className="home-container">
 
           {/* Heading row */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3.5rem', flexWrap: 'wrap', gap: '1rem' }}>
@@ -153,15 +151,15 @@ export default function Home() {
           </div>
 
           {/* Editorial layout: one large + two small */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: '1.5px', background: S.border }}>
+          <div className="home-pizza-grid" style={{ background: S.border }}>
 
             {/* Large featured pizza */}
-            <AnimatedSection style={{ gridRow: 'span 2' }}>
+            <AnimatedSection className="home-pizza-large">
               <motion.div
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.4 }}
-                style={{ position: 'relative', height: '100%', minHeight: '520px', overflow: 'hidden', cursor: 'default', background: S.bg }}
-                className="group"
+                className="group home-pizza-large-inner"
+                style={{ background: S.bg }}
               >
                 <Image src={featuredPizzas[0].image} alt={featuredPizzas[0].name} fill className="object-cover"
                   style={{ transition: 'transform 0.7s ease' }}
@@ -184,8 +182,8 @@ export default function Home() {
                 <motion.div
                   whileHover={{ scale: 1.01 }}
                   transition={{ duration: 0.4 }}
-                  style={{ position: 'relative', height: '255px', overflow: 'hidden', cursor: 'default', background: S.bg }}
-                  className="group"
+                  className="group home-pizza-small-inner"
+                  style={{ background: S.bg }}
                 >
                   <Image src={pizza.image} alt={pizza.name} fill className="object-cover"
                     style={{ transition: 'transform 0.7s ease' }}
@@ -196,7 +194,7 @@ export default function Home() {
                       {pizza.name}
                     </h3>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <p style={{ color: S.muted, fontSize: '12.5px' }}>{pizza.description}</p>
+                      <p className="home-pizza-desc" style={{ color: S.muted, fontSize: '12.5px' }}>{pizza.description}</p>
                       <span style={{ color: S.gold, fontSize: '1rem', fontWeight: 700, marginLeft: '1rem', flexShrink: 0 }}>{pizza.price} zł</span>
                     </div>
                   </div>
@@ -208,9 +206,9 @@ export default function Home() {
       </section>
 
       {/* ── VISIT ───────────────────────────────────────────────── */}
-      <section style={{ background: S.bg, padding: '7rem 0' }}>
-        <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6rem', alignItems: 'start' }}>
+      <section className="home-section-md" style={{ background: S.bg }}>
+        <div className="home-container">
+          <div className="home-visit-grid">
 
             <AnimatedSection>
               <p style={{ color: S.gold, fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '2.5rem' }}>
@@ -258,7 +256,7 @@ export default function Home() {
       </section>
 
       {/* ── CTA STRIP ───────────────────────────────────────────── */}
-      <section style={{ borderTop: `1px solid ${S.border}`, background: S.surface, padding: '5rem 2.5rem' }}>
+      <section className="home-cta-strip" style={{ borderTop: `1px solid ${S.border}`, background: S.surface }}>
         <div style={{ maxWidth: '72rem', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
           <AnimatedSection>
             <h2 style={{ fontFamily: 'var(--font-playfair, serif)', fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 700, color: S.text, letterSpacing: '-0.02em' }}>

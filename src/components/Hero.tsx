@@ -66,7 +66,26 @@ export default function Hero() {
           .hero-vertical-label {
             display: none !important;
           }
+          .hero-logo {
+            width: 200px !important;
+            height: 200px !important;
+          }
+          .hero-big-temp {
+            font-size: clamp(2.5rem, 10vw, 4rem);
+          }
+          .hero-bottom-temp {
+            bottom: 1.5rem !important;
+            left: 1.5rem !important;
+          }
         }
+        @media (max-width: 480px) {
+          .hero-left {
+            padding: 1.5rem 1.25rem 2rem;
+          }
+          .hero-logo {
+            width: 150px !important;
+            height: 150px !important;
+          }
       `}</style>
 
       <section className="hero-root">
@@ -80,13 +99,14 @@ export default function Hero() {
         >
           {/* Logo */}
           <div style={{ marginBottom: 'auto' }}>
-            <Image
-              src="/images/logo.png"
-              alt="Manufaktura Pizzy"
-              width={480}
-              height={480}
-              className="rounded-full"
-            />
+            <div className="hero-logo" style={{ borderRadius: '50%', overflow: 'hidden', position: 'relative', width: '280px', height: '280px' }}>
+              <Image
+                src="/images/logo.png"
+                alt="Manufaktura Pizzy"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
 
           {/* Main title block */}
@@ -175,6 +195,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            className="hero-bottom-temp"
             style={{
               position: 'absolute',
               bottom: '2.5rem',

@@ -5,18 +5,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { menuItems, categories, MenuCategory, DietaryTag } from '@/data/menu';
 import MenuCard from '@/components/MenuCard';
 import AnimatedSection from '@/components/AnimatedSection';
-import { Filter, Leaf, Flame, X } from 'lucide-react';
+import { Filter, Leaf, Flame, X, ChevronDown } from 'lucide-react';
 
 const filters: { key: DietaryTag | 'all'; label: string; icon?: React.ReactNode }[] = [
   { key: 'all', label: 'Wszystkie' },
-  { key: 'vegetarian', label: 'Wegetarianskie', icon: <Leaf size={16} /> },
-  { key: 'vegan', label: 'Weganskie', icon: <Leaf size={16} /> },
-  { key: 'spicy', label: 'Pikantne', icon: <Flame size={16} /> }
+  { key: 'vegetarian', label: 'Wege', icon: <Leaf size={14} /> },
+  { key: 'vegan', label: 'Vegan', icon: <Leaf size={14} /> },
+  { key: 'spicy', label: 'Pikantne', icon: <Flame size={14} /> }
 ];
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState<MenuCategory>('pizze');
   const [activeFilter, setActiveFilter] = useState<DietaryTag | 'all'>('all');
+  const [categoryOpen, setCategoryOpen] = useState(false);
 
   const filteredItems = useMemo(() => {
     let items = menuItems.filter((item) => item.category === activeCategory);
@@ -28,8 +29,48 @@ export default function MenuPage() {
     return items;
   }, [activeCategory, activeFilter]);
 
+  const activeCategoryLabel = categories.find(c => c.key === activeCategory)?.label || '';
+
   return (
     <div className="min-h-screen pt-24 pb-20">
+      <style>{`
+        .menu-category-tabs-desktop {
+          display: flex;
+          overflow-x: auto;
+          padding: 1rem 0;
+          gap: 0.5rem;
+        }
+        .menu-category-mobile {
+          display: none;
+        }
+        .menu-filters {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+        .menu-filter-label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        @media (max-width: 768px) {
+          .menu-category-tabs-desktop {
+            display: none;
+          }
+          .menu-category-mobile {
+            display: block;
+            padding: 0.75rem 0;
+          }
+          .menu-filters {
+            gap: 0.5rem;
+          }
+          .menu-filter-label {
+            display: none;
+          }
+        }
+      `}</style>
+
       {/* Header */}
       <div className="bg-surface py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,7 +89,9 @@ export default function MenuPage() {
       {/* Category Tabs */}
       <div className="sticky top-20 z-40 bg-background border-b border-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto py-4 gap-2 scrollbar-hide">
+
+          {/* Desktop tabs */}
+          <div className="menu-category-tabs-desktop scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category.key}
@@ -66,14 +109,98 @@ export default function MenuPage() {
               </button>
             ))}
           </div>
+
+          {/* Mobile dropdown */}
+          <div className="menu-category-mobile">
+            <div style={{ position: 'relative' }}>
+              <button
+                onClick={() => setCategoryOpen(!categoryOpen)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.875rem 1.25rem',
+                  background: '#141109',
+                  border: '1px solid rgba(201,151,62,0.25)',
+                  borderRadius: '0.75rem',
+                  color: '#C9973E',
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {activeCategoryLabel}
+                <ChevronDown
+                  size={18}
+                  style={{
+                    transition: 'transform 0.2s',
+                    transform: categoryOpen ? 'rotate(180deg)' : 'rotate(0)',
+                  }}
+                />
+              </button>
+
+              <AnimatePresence>
+                {categoryOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      position: 'absolute',
+                      top: 'calc(100% + 4px)',
+                      left: 0,
+                      right: 0,
+                      background: '#141109',
+                      border: '1px solid rgba(201,151,62,0.2)',
+                      borderRadius: '0.75rem',
+                      overflow: 'hidden',
+                      zIndex: 50,
+                      boxShadow: '0 12px 32px rgba(0,0,0,0.5)',
+                    }}
+                  >
+                    {categories.map((category) => (
+                      <button
+                        key={category.key}
+                        onClick={() => {
+                          setActiveCategory(category.key);
+                          setActiveFilter('all');
+                          setCategoryOpen(false);
+                        }}
+                        style={{
+                          display: 'block',
+                          width: '100%',
+                          textAlign: 'left',
+                          padding: '0.875rem 1.25rem',
+                          fontSize: '15px',
+                          color: activeCategory === category.key ? '#C9973E' : '#EDE8DF',
+                          fontWeight: activeCategory === category.key ? 600 : 400,
+                          background: activeCategory === category.key ? 'rgba(201,151,62,0.1)' : 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid rgba(237,232,223,0.06)',
+                          cursor: 'pointer',
+                          transition: 'background 0.15s',
+                        }}
+                      >
+                        {category.label}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
         </div>
       </div>
 
       {/* Filters */}
       {activeCategory === 'pizze' && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-4 flex-wrap">
-            <span className="flex items-center gap-2 text-text-muted">
+          <div className="menu-filters">
+            <span className="menu-filter-label text-text-muted">
               <Filter size={18} />
               Filtruj:
             </span>
@@ -97,7 +224,7 @@ export default function MenuPage() {
                 className="flex items-center gap-1 text-text-muted hover:text-primary transition-colors text-sm"
               >
                 <X size={16} />
-                Wyczysc filtr
+                Wyczysc
               </button>
             )}
           </div>

@@ -94,15 +94,16 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="absolute -bottom-8 -left-8 bg-surface border border-primary/30 p-4 rounded-2xl shadow-2xl"
+                  className="absolute -bottom-8 -left-8 bg-surface border border-primary/30 p-4 rounded-2xl shadow-2xl about-logo-overlay"
                 >
-                  <Image
-                    src="/images/logo.png"
-                    alt="Manufaktura Pizzy Logo"
-                    width={320}
-                    height={320}
-                    className="rounded-full"
-                  />
+                  <div style={{ width: '200px', height: '200px', borderRadius: '50%', overflow: 'hidden', position: 'relative' }}>
+                    <Image
+                      src="/images/logo.png"
+                      alt="Manufaktura Pizzy Logo"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </motion.div>
               </div>
             </AnimatedSection>

@@ -35,20 +35,32 @@ export default function Navbar() {
       transition={{ duration: 0.6, delay: 0.2 }}
       style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, transition: 'background 0.4s, border 0.4s', background: bg, backdropFilter: isScrolled ? 'blur(20px)' : 'none', WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none', borderBottom: border }}
     >
-      <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
+      <div className="nav-container" style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
 
-        {/* Logo — pojawia się tylko po przewinięciu */}
-        <Link href="/" style={{
+        {/* Logo — pojawia się tylko po przewinięciu (desktop) */}
+        <Link href="/" className="nav-logo" style={{
           display: 'flex', textDecoration: 'none', flexShrink: 0,
           opacity: isScrolled ? 1 : 0,
           pointerEvents: isScrolled ? 'auto' : 'none',
           transition: 'opacity 0.4s ease',
         }}>
-          <Image src="/images/logo.png" alt="Manufaktura Pizzy" width={135} height={135} className="rounded-full" />
+          <div style={{ width: '60px', height: '60px', borderRadius: '50%', overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+            <Image src="/images/logo.png" alt="Manufaktura Pizzy" fill className="object-cover" />
+          </div>
+        </Link>
+
+        {/* Mobile brand name */}
+        <Link href="/" className="nav-mobile-brand" style={{
+          display: 'none', textDecoration: 'none',
+          fontFamily: 'var(--font-playfair, serif)',
+          fontSize: '1.1rem', fontWeight: 700, color: '#EDE8DF',
+          letterSpacing: '-0.02em',
+        }}>
+          Manufaktura <span style={{ color: '#C9973E', fontStyle: 'italic' }}>Pizzy</span>
         </Link>
 
         {/* Desktop nav — center */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }} className="hidden md:flex">
+        <nav style={{ alignItems: 'center', gap: '0.25rem' }} className="hidden md:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
@@ -72,7 +84,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right: phone + CTA */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }} className="hidden md:flex">
+        <div style={{ alignItems: 'center', gap: '1.5rem' }} className="hidden md:flex">
           <a href="tel:+48733355075" style={{ color: 'rgba(237,232,223,0.35)', fontSize: '13px', textDecoration: 'none', letterSpacing: '0.03em', transition: 'color 0.2s' }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(237,232,223,0.75)'; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(237,232,223,0.35)'; }}>
@@ -110,7 +122,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{ background: 'rgba(10,8,5,0.98)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(201,151,62,0.1)', overflow: 'hidden' }}
           >
-            <div style={{ padding: '1rem 2.5rem 2rem' }}>
+            <div className="nav-mobile-menu-inner" style={{ padding: '1rem 2.5rem 2rem' }}>
               {navLinks.map((link, i) => {
                 const active = pathname === link.href;
                 return (
